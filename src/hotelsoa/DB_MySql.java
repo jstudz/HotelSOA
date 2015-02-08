@@ -43,7 +43,7 @@ public class DB_MySql implements DB_Accessor {
         }
         
         final String finalSqlStmt = sql.toString().substring(0, sql.lastIndexOf(",")) + ")";
-        conn.prepareStatement(finalSqlStmt);
+        stmt = conn.prepareStatement(finalSqlStmt);
         
         final int valueNum = columnValues.size();
         
@@ -53,11 +53,11 @@ public class DB_MySql implements DB_Accessor {
             if (obj instanceof String) {
                 stmt.setString(k + 1, obj.toString());
             } else if (obj instanceof Integer) {
-                stmt.setInt(k, (int)obj);
+                stmt.setInt(k + 1, (int)obj);
             }
         }
         
-        stmt.execute();
+        stmt.executeUpdate();
         
     }
 
