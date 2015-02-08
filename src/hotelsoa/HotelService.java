@@ -22,6 +22,10 @@ public class HotelService {
         return allHotels = hDoa.findAllHotels();
     }
     
+    public void addHotel(Hotel hotel) throws ClassNotFoundException, SQLException {
+        hDoa.addNewHotel(hotel);
+    }
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         HotelService hs = new HotelService();
         

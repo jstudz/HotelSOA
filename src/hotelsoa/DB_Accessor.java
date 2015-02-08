@@ -8,11 +8,13 @@ import java.util.Map;
 
 public interface DB_Accessor {
 
-    void closeConnection() throws SQLException;
-
-    Map findRecordById(String tableName, String primaryKey, Object primaryKeyValue) throws SQLException;
-
-    void openConnection(String driverClass, String url, String userName, String password) throws ClassNotFoundException, SQLException;
+    public void closeConnection() throws SQLException;
     
-     public List findRecords(String sqlStmt) throws SQLException;
+    public void insertRecord(String tableName, List columnNames, List columnValues) throws SQLException;
+    
+    public Map findRecordById(String tableName, String primaryKey, Object primaryKeyValue) throws SQLException;
+
+    public void openConnection(String driverClass, String url, String userName, String password) throws ClassNotFoundException, SQLException;
+    
+    public List findRecords(String sqlStmt) throws SQLException;
 }

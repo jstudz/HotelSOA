@@ -137,7 +137,7 @@ public class DB_MySql implements DB_Accessor {
         colNames.add("note");
         List colValues = new ArrayList();
         colValues.add(3);
-        colValues.add("The Langham, Chicago");
+        colValues.add("The Langham");
         colValues.add("330 North Wabash Avenue");
         colValues.add("Chicago");
         colValues.add("IL");

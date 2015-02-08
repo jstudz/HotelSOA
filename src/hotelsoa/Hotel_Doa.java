@@ -21,6 +21,30 @@ public class Hotel_Doa {
         db.openConnection(DRIVER_CLASS, URL, USER_NAME, PASSWORD);
     }
     
+    public void addNewHotel(Hotel hotel) throws ClassNotFoundException, SQLException {
+        this.openDbConnection();
+        
+        List columnNames = new ArrayList();
+        columnNames.add("hotel_id");
+        columnNames.add("hotel_name");
+        columnNames.add("street_address");
+        columnNames.add("city");
+        columnNames.add("state");
+        columnNames.add("postal_code");
+        columnNames.add("note");
+        
+        List hotelValues = new ArrayList();
+        hotelValues.add(hotel.getHotelID());
+        hotelValues.add(hotel.getHotelName());
+        hotelValues.add(hotel.getStreetAddress());
+        hotelValues.add(hotel.getCity());
+        hotelValues.add(hotel.getState());
+        hotelValues.add(hotel.getPostalCode());
+        hotelValues.add(hotel.getNotes());
+        
+        db.insertRecord("hotel", columnNames, hotelValues);
+    }
+    
     public Hotel findHotelById (int hotelID) throws ClassNotFoundException, SQLException {
         this.openDbConnection();
         
@@ -57,6 +81,16 @@ public class Hotel_Doa {
 //        System.out.println(hDoa.findHotelById(1).getHotelName());
 //        System.out.println(hDoa.findHotelById(1).getStreetAddress());
 //        System.out.println(hDoa.findHotelById(1).getNotes());
+        Hotel newHotel = new Hotel();
+        newHotel.setHotelID(4);
+        newHotel.setHotelName("French Quarter Inn");
+        newHotel.setStreetAddress("166 Church St");
+        newHotel.setCity("Charleston");
+        newHotel.setState("SC");
+        newHotel.setPostalCode("29401");
+        newHotel.setNotes("Free Breakfast, Free Wifi");
+        hDoa.addNewHotel(newHotel);
+        
         System.out.println(hDoa.findAllHotels());
     }
 }
