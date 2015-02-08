@@ -2,6 +2,8 @@
 package hotelsoa;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HotelService {
     Hotel_Doa hDoa;
@@ -14,9 +16,15 @@ public class HotelService {
         return hDoa.findHotelById(hotelId);
     }
     
+    public List<Hotel> findAllHotels() throws ClassNotFoundException, SQLException {
+        List<Hotel> allHotels = new ArrayList<Hotel>();
+        
+        return allHotels = hDoa.findAllHotels();
+    }
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         HotelService hs = new HotelService();
         
-        System.out.println(hs.findHotel(2).getHotelName());
+        System.out.println(hs.findAllHotels().toString());
     }
 }
