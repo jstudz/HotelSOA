@@ -45,6 +45,38 @@ public class Hotel_Doa {
         db.insertRecord("hotel", columnNames, hotelValues);
     }
     
+    public void removeHotel(Hotel hotel) throws ClassNotFoundException, SQLException {
+        this.openDbConnection();
+        
+        String hotelId = Integer.toString(hotel.getHotelID());
+        
+        db.deleteRecord("hotel", "hotel_id", hotelId);
+    }
+    
+    public void updateHotelInfo(Hotel hotel) throws ClassNotFoundException, SQLException {
+        this.openDbConnection();
+        
+        List columnNames = new ArrayList();
+        columnNames.add("hotel_id");
+        columnNames.add("hotel_name");
+        columnNames.add("street_address");
+        columnNames.add("city");
+        columnNames.add("state");
+        columnNames.add("postal_code");
+        columnNames.add("note");
+        
+        List hotelValues = new ArrayList();
+        hotelValues.add(hotel.getHotelID());
+        hotelValues.add(hotel.getHotelName());
+        hotelValues.add(hotel.getStreetAddress());
+        hotelValues.add(hotel.getCity());
+        hotelValues.add(hotel.getState());
+        hotelValues.add(hotel.getPostalCode());
+        hotelValues.add(hotel.getNotes());
+        
+        db.updateRecord("hotel", columnNames, hotelValues, "hotel_id", Integer.toString(hotel.getHotelID()));
+    }
+    
     public Hotel findHotelById (int hotelID) throws ClassNotFoundException, SQLException {
         this.openDbConnection();
         
@@ -73,7 +105,16 @@ public class Hotel_Doa {
         return allHotels;
     }
     
-    
+    public List findHotelsByState(String state) throws ClassNotFoundException, SQLException {
+        this.openDbConnection();
+        
+        List hotelsState = new ArrayList();
+        String sqlStmt = "SELECT * FROM HOTEL WHERE STATE = '" + state + "'";
+        
+        hotelsState = db.findRecords(sqlStmt);
+        
+        return hotelsState;
+    }
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Hotel_Doa hDoa = new Hotel_Doa();
@@ -88,9 +129,11 @@ public class Hotel_Doa {
         newHotel.setCity("Charleston");
         newHotel.setState("SC");
         newHotel.setPostalCode("29401");
-        newHotel.setNotes("Free Breakfast, Free Wifi");
-        hDoa.addNewHotel(newHotel);
+        newHotel.setNotes("Free Breakfast, Free Wifi, Room Service Available");
+//        hDoa.addNewHotel(newHotel);
         
-        System.out.println(hDoa.findAllHotels());
+        hDoa.updateHotelInfo(newHotel);
+        System.out.println(hDoa.findHotelById(4).getNotes());
+        
     }
 }

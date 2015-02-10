@@ -12,6 +12,10 @@ public interface DB_Accessor {
     
     public void insertRecord(String tableName, List columnNames, List columnValues) throws SQLException;
     
+    public void deleteRecord(String tableName, String columnName, String columnValue) throws SQLException;
+    
+    public void updateRecord(String tableName, List columnsChanged, List valuesChanged, String columnName, String columnValue) throws SQLException;
+    
     public Map findRecordById(String tableName, String primaryKey, Object primaryKeyValue) throws SQLException;
 
     public void openConnection(String driverClass, String url, String userName, String password) throws ClassNotFoundException, SQLException;

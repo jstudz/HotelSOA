@@ -22,13 +22,27 @@ public class HotelService {
         return allHotels = hDoa.findAllHotels();
     }
     
+    public List<Hotel> findHotelByState(String state) throws ClassNotFoundException, SQLException {
+        List<Hotel> hotelsByState = new ArrayList<Hotel>();
+        
+        return hotelsByState = hDoa.findHotelsByState(state);
+    }
+    
     public void addHotel(Hotel hotel) throws ClassNotFoundException, SQLException {
         hDoa.addNewHotel(hotel);
+    }
+    
+    public void removeHotel(Hotel hotel) throws ClassNotFoundException, SQLException {
+        hDoa.removeHotel(hotel);
+    }
+    
+    public void updateHotelInformation(Hotel hotel) throws ClassNotFoundException, SQLException {
+        hDoa.updateHotelInfo(hotel);
     }
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         HotelService hs = new HotelService();
         
-        System.out.println(hs.findAllHotels().toString());
+        System.out.println(hs.findHotelByState("IL"));
     }
 }
