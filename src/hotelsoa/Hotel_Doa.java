@@ -74,7 +74,7 @@ public class Hotel_Doa {
         hotelValues.add(hotel.getPostalCode());
         hotelValues.add(hotel.getNotes());
         
-        db.updateRecord("hotel", columnNames, hotelValues, "hotel_id", Integer.toString(hotel.getHotelID()));
+        db.updateRecord("hotel", columnNames, hotelValues, "hotel_id", hotel.getHotelID());
     }
     
     public Hotel findHotelById (int hotelID) throws ClassNotFoundException, SQLException {

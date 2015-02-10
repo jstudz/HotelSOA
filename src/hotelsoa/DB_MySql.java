@@ -72,7 +72,7 @@ public class DB_MySql implements DB_Accessor {
         stmt.executeUpdate(sql);
     }
 
-    public void updateRecord(String tableName, List columnsChanged, List valuesChanged, String columnName, String columnValue) throws SQLException {
+    public void updateRecord(String tableName, List columnsChanged, List valuesChanged, String columnName, Object columnValue) throws SQLException {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
         final int columnChangeSize = columnsChanged.size();
         PreparedStatement stmt = null;
@@ -80,8 +80,18 @@ public class DB_MySql implements DB_Accessor {
         for (int i = 0; i < columnChangeSize; i++) {
             sql.append(columnsChanged.get(i)).append(" = ?,");
         }
-
-        String finalSqlStmt = sql.toString().substring(0, sql.lastIndexOf(",")) + " WHERE " + columnName + "= '" + columnValue + "'";
+        
+        String objValue = null; 
+        
+        //Test to see whether or not the column value is a string or not. If it is
+        //a string, it's surrounded by quotes
+        if (columnValue instanceof String) {
+            objValue = "= '" + columnValue + "'";
+        } else {
+            objValue = "= " + columnValue;
+        }
+        
+        String finalSqlStmt = sql.toString().substring(0, sql.lastIndexOf(",")) + " WHERE " + columnName + "= " + objValue;
         stmt = conn.prepareStatement(finalSqlStmt);
         
         final int valueSize = valuesChanged.size();
